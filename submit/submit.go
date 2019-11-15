@@ -291,7 +291,7 @@ $BATCH_SCRIPT
 		ContainerProperties: &batch.ContainerProperties{Image: &cli.Image, JobRoleArn: role.Arn,
 			Memory:  aws.Int64(int64(cli.Mem)),
 			Command: commands,
-			Ulimits: []*batch.Ulimit{&batch.Ulimit{HardLimit: aws.Int64(cli.Mem), SoftLimit: aws.Int64(cli.Mem), Name: aws.String("rss")}},
+								Ulimits: []*batch.Ulimit{&batch.Ulimit{HardLimit: aws.Int64(int64(cli.Mem)), SoftLimit: aws.Int64(int64(cli.Mem)), Name: aws.String("rss")}},
 			Environment: []*batch.KeyValuePair{&batch.KeyValuePair{Name: aws.String("B64GZ"),
 				Value: aws.String(payload)}},
 			Privileged: aws.Bool(true),
