@@ -7,12 +7,12 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/base2genomics/batchit"
-	"github.com/base2genomics/batchit/ddv"
-	"github.com/base2genomics/batchit/exsmount"
-	"github.com/base2genomics/batchit/logof"
-	"github.com/base2genomics/batchit/s3upload"
-	"github.com/base2genomics/batchit/submit"
+	"github.com/ponahoum/batchit"
+	"github.com/ponahoum/batchit/ddv"
+	"github.com/ponahoum/batchit/exsmount"
+	"github.com/ponahoum/batchit/logof"
+	"github.com/ponahoum/batchit/s3upload"
+	"github.com/ponahoum/batchit/submit"
 )
 
 type progPair struct {
