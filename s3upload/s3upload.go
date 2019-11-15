@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/base2genomics/batchit/submit"
+	"github.com/ponahoum/batchit/submit"
 
 	arg "github.com/alexflint/go-arg"
 	"github.com/aws/aws-sdk-go/aws"
