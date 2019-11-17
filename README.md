@@ -1,5 +1,7 @@
-batchit is a collection of utilities for working with AWS batch.
 
+This fork changes thebatchit rss ulimit for batch jobs to be really limited in memory usage.
+The build for linux-amd64 can be found in the actifacts of actions.
+batchit is a collection of utilities for working with AWS batch.
 
 usage
 =====
