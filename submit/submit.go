@@ -286,9 +286,9 @@ $BATCH_SCRIPT
 		arrayProp = &batch.ArrayProperties{Size: aws.Int64(cli.ArraySize)}
 	}
 	
-	var resourcesRequirements []batch.ResourceRequirements 
+	var resourcesRequirements []batch.ResourceRequirement
 	if cli.GPUs != 0 {
-		resourcesRequirements = []*batch.ResourceRequirements{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}
+		resourcesRequirements = []*batch.ResourceRequirement{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}
 	}
 
 	jdef := &batch.RegisterJobDefinitionInput{
