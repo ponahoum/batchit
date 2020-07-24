@@ -286,9 +286,9 @@ $BATCH_SCRIPT
 		arrayProp = &batch.ArrayProperties{Size: aws.Int64(cli.ArraySize)}
 	}
 	
-	var resourcesRequirements []batch.ResourceRequirement
+	var resourcesRequirements []*batch.ResourceRequirement
 	if cli.GPUs != 0 {
-		resourcesRequirements = []*batch.ResourceRequirement{&batch.ResourceRequirement{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}}
+		resourcesRequirements := []*batch.ResourceRequirement{&batch.ResourceRequirement{Type: aws.String("GPU"), Value: aws.String(strconv.Itoa(cli.GPUs))}}
 	}
 
 	jdef := &batch.RegisterJobDefinitionInput{
@@ -301,8 +301,8 @@ $BATCH_SCRIPT
 			Environment: []*batch.KeyValuePair{&batch.KeyValuePair{Name: aws.String("B64GZ"),
 				Value: aws.String(payload)}},
 			Privileged: aws.Bool(true),
+			ResourceRequirements: resourcesRequirements,
 			Vcpus:      aws.Int64(int64(cli.CPUs))},
-		ResourceRequirements: resourcesRequirements,
 		Type: aws.String("container"),
 	}
 	if cli.Ebs != "" {
