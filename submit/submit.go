@@ -301,7 +301,7 @@ $BATCH_SCRIPT
 			Environment: []*batch.KeyValuePair{&batch.KeyValuePair{Name: aws.String("B64GZ"),
 				Value: aws.String(payload)}},
 			Privileged: aws.Bool(true),
-			ResourceRequirements: resourcesRequirements,
+			ResourceRequirements: &resourcesRequirements,
 			Vcpus:      aws.Int64(int64(cli.CPUs))},
 		Type: aws.String("container"),
 	}
