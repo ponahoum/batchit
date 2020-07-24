@@ -39,6 +39,7 @@ type cliargs struct {
 	Retries   int64    `arg:"-r,help:number of times to retry this job on failure"`
 	EnvVars   []string `arg:"-v,help:key-value environment pairs of the form NAME=value"`
 	CPUs      int      `arg:"-c,help:number of cpus reserved by the job"`
+	GPUs      int      `arg:"-g,help:number of gpus reserved by the job"`
 	Volumes   []string `arg:"-o,help:HOST_PATH=CONTAINER_PATH"`
 	S3Outputs string   `arg:"help:comma-delimited list of s3 paths indicating the output of this run. If all present job will *not* be run."`
 	Mem       int      `arg:"-m,help:memory (MiB) reserved by the job"`
@@ -284,6 +285,11 @@ $BATCH_SCRIPT
 	if cli.ArraySize != 0 {
 		arrayProp = &batch.ArrayProperties{Size: aws.Int64(cli.ArraySize)}
 	}
+	
+	var resourcesRequirements []batch.ResourceRequirements 
+	if cli.GPUs != 0 {
+		resourcesRequirements = []*batch.ResourceRequirements{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}
+	}
 
 	jdef := &batch.RegisterJobDefinitionInput{
 		JobDefinitionName: &cli.JobName,
@@ -296,6 +302,7 @@ $BATCH_SCRIPT
 				Value: aws.String(payload)}},
 			Privileged: aws.Bool(true),
 			Vcpus:      aws.Int64(int64(cli.CPUs))},
+		ResourceRequirements: resourcesRequirements,
 		Type: aws.String("container"),
 	}
 	if cli.Ebs != "" {
