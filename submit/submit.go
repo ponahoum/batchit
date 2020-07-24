@@ -288,7 +288,7 @@ $BATCH_SCRIPT
 	
 	var resourcesRequirements []batch.ResourceRequirement
 	if cli.GPUs != 0 {
-		resourcesRequirements = []*batch.ResourceRequirement{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}
+		resourcesRequirements = []*batch.ResourceRequirement{&batch.ResourceRequirement{Name: aws.String("GPU"), Value: aws.String(cli.GPUs)}}
 	}
 
 	jdef := &batch.RegisterJobDefinitionInput{
