@@ -285,11 +285,6 @@ $BATCH_SCRIPT
 	if cli.ArraySize != 0 {
 		arrayProp = &batch.ArrayProperties{Size: aws.Int64(cli.ArraySize)}
 	}
-	
-	var resourcesRequirements []*batch.ResourceRequirement
-	if cli.GPUs != 0 {
-		resourcesRequirements := []*batch.ResourceRequirement{&batch.ResourceRequirement{Type: aws.String("GPU"), Value: aws.String(strconv.Itoa(cli.GPUs))}}
-	}
 
 	jdef := &batch.RegisterJobDefinitionInput{
 		JobDefinitionName: &cli.JobName,
@@ -301,9 +296,13 @@ $BATCH_SCRIPT
 			Environment: []*batch.KeyValuePair{&batch.KeyValuePair{Name: aws.String("B64GZ"),
 				Value: aws.String(payload)}},
 			Privileged: aws.Bool(true),
-			ResourceRequirements: &resourcesRequirements,
 			Vcpus:      aws.Int64(int64(cli.CPUs))},
 		Type: aws.String("container"),
+	}
+	if cli.GPUs != 0 {
+		jdef.ContainerProperties.ResourceRequirements = []*batch.ResourceRequirement{
+			&batch.ResourceRequirement{Type: aws.String("GPU"), Value: aws.String(strconv.Itoa(cli.GPUs))},
+		}
 	}
 	if cli.Ebs != "" {
 		// see: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html
