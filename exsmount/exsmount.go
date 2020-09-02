@@ -511,16 +511,16 @@ func Main() {
 
 func findNextDevNode(prefix string, pi int, suffixChars string) (int, string) {
 	if prefix == "/dev/sd" {
-		if pi == 0 {
-			for i, s := range suffixChars {
-				if _, err := os.Stat(prefix + string(s)); err == nil {
-					continue
-				} else if os.IsNotExist(err) {
-					return i, prefix + string(s)
-				}
+		//if pi == 0 {
+		for i, s := range suffixChars {
+			if _, err := os.Stat(prefix + string(s)); err == nil {
+				continue
+			} else if os.IsNotExist(err) {
+				return i, prefix + string(s)
 			}
-			return -1, ""
 		}
+		return -1, ""
+		/*}
 		if pi != 0 {
 			for i, s := range suffixChars {
 				for j := 1; j < 15; j++ {
@@ -536,7 +536,7 @@ func findNextDevNode(prefix string, pi int, suffixChars string) (int, string) {
 				}
 			}
 			return -1, ""
-		}
+		}*/
 
 	} else {
 		// /dev/xd
