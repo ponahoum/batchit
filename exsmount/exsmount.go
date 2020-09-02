@@ -351,6 +351,7 @@ func CreateAttach(cli *Args) ([]string, error) {
 			var koff, off int // these help so we don't retry the same dev multiple times
 			for k := int64(0); k < 7 && int(k)+koff < len(letters); k++ {
 				off, attachDevice = findNextDevNode(prefix, pi, letters[int(k)+koff:len(letters)])
+				log.Printf("Debug k, koff, off, attachDevice, lenLetters: %s, %s, %s, %s, %s", k, koff, off, attachDevice, len(letters))
 				if off == -1 {
 					break
 				}
@@ -360,6 +361,7 @@ func CreateAttach(cli *Args) ([]string, error) {
 					// so introduce some randomness.
 					koff += rand.Intn(5)
 				}
+				log.Printf("Debug koff: %s", koff)
 
 				if _, err := svc.AttachVolume(&ec2.AttachVolumeInput{
 					InstanceId: aws.String(iid.InstanceId),
